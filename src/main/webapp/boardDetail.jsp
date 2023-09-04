@@ -5,14 +5,14 @@
     <title>글 상세</title>
 </head>
 <body>
-<h1 text>글쓰기</h1>
+<h1 text>글 상세</h1>
 <hr>
 <form class="write-form" action="/boardDetail.do" method="post">
     <table style="text-align: center; border: 1px solid #dddddd">
         <thead>
         <tr>
             <td>작성자</td>
-            <td text-align="left"><input type="text" name="writer" + value=""></td>
+            <td text-align="left"><input type="text" name="writer" + value="<%=writerDTO1.getWriter%>"></td>
         </tr>
         <tr>
             <td>내용</td>

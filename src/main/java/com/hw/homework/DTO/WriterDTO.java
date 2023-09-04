@@ -1,7 +1,5 @@
 package com.hw.homework.DTO;
 
-import lombok.Data;
-
 public class WriterDTO {
     private int writerIndex;
     private String writer;

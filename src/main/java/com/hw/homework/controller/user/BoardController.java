@@ -20,7 +20,7 @@ public class BoardController extends HttpServlet {
         // DB 연동
         WriterDTO writerDTO = new WriterDTO();
 
-        WriterDAO writerDAO = new WriterDAO();
+        WriterDAO writerDAO = new WriterDAO();  // 객체 생성시 DAO에서 드라이버 로딩 시작
         List<WriterDTO> writerDTOList = writerDAO.getWriterList(writerDTO);
 
         req.setAttribute("writerDTOList",writerDTOList);

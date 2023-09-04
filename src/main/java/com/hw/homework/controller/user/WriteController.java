@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-@WebServlet("/write.do")
+@WebServlet("/write.do")  // Annotation을 이용한 URL mapping
 public class WriteController extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -28,7 +28,7 @@ public class WriteController extends HttpServlet {
         throws ServletException, IOException {
         // 한글 인코딩
         req.setCharacterEncoding("UTF-8");
-        // 사용자 입력 정보 추출
+        // 사용자 입력 정보 추출 (name 파라미터)
         String writer = req.getParameter("writer");
         String content = req.getParameter("content");
        // DB 연동
@@ -39,9 +39,6 @@ public class WriteController extends HttpServlet {
        WriterDAO writerDAO = new WriterDAO();
        writerDAO.insertWriter(writerDTO);
 
-
-//       req.setAttribute("writerDAO", writerDAO);
-//       res.sendRedirect("/board.jsp");
-
+        res.sendRedirect("/board.do");
     }
 }

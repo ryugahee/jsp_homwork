@@ -9,21 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/boardDetail.do")
 public class BoardDetailController extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+
+        req.getRequestDispatcher("/boardDetail.jsp").forward(req, res);
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
         // 사용자 입력 정보 추출
         String writerIndex = req.getParameter("writerIndex");
-
         // DB 연동
         WriterDTO writerDTO = new WriterDTO();
         writerDTO.setWriterIndex(Integer.parseInt(writerIndex));
 
-
         WriterDAO writerDAO = new WriterDAO();
-        writerDAO.selectWriter(writerDTO);
+        WriterDTO writerDTO1 = writerDAO.selectWriter(writerDTO);
+
+//        req.setAttribute("writerDTO1", writerDTO1);
+
     }
 }

@@ -8,6 +8,7 @@
 <body>
 <h1 text>글쓰기</h1>
 <hr>
+<%--<form> 태그의 action 속성 => form data를 서버로 보낼 때 해당 데이터가 도착할 URL을 명시--%>
 <form class="write-form" action="/write.do" method="post">
     <table style="text-align: center; border: 1px solid #dddddd">
         <thead>
@@ -26,6 +27,7 @@
             </td>
         </tr>
     </table>
+    <a href="board.do">글 목록</a>
 </form>
 </body>
 </html>

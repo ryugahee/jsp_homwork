@@ -17,8 +17,10 @@ public class WriterDAO {
     private PreparedStatement stmt;
     private ResultSet rs;
     // SQL 명령어
-    private static  String WRITER_INSERT  = "insert into WRITER(writer, content) values (?, ?)";
-    private static String WRITER_UPDATE = "update WRITER set writerIndex=?, writer=?, content=?";
+    private static  String WRITER_INSERT  = "insert into WRITER(writer, content)" +
+            " values (?, ?)";
+    private static String WRITER_UPDATE = "update WRITER " +
+            "set writerIndex=?, writer=?, content=?";
     private static  String WRITER_DELETE = "delete from WRITER where writerIndex=?";
     private static  String WRITER_GET = "select * from WRITER where writerIndex=?";
     private static  String WRITER_LIST = "select * from WRITER";
