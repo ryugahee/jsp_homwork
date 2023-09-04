@@ -33,8 +33,9 @@
                     <%=writerDTO1.getWriter()%>
                 </div>
             </td>
-            <td>
+            <td text-align="left">
                 <div>
+                    <a href="boardDetail.do?writerIndex=<%=writerDTO1.getWriterIndex()%>"></a>
                     <%=writerDTO1.getContent()%>
                 </div>
             </td>
@@ -42,6 +43,7 @@
         <% }%>
         </tbody>
     </table>
+    <a href="write.do">글쓰기</a>
 </form>
 </body>
 </html>

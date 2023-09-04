@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.hw.system.DB.DBClose;
 
 import com.hw.system.DB.DBConnection;
 
@@ -16,7 +17,7 @@ public class WriterDAO {
     private PreparedStatement stmt;
     private ResultSet rs;
     // SQL 명령어
-    private static  String WRITER_INSERT  = "insert into WRITER(writerIndex, writer, content) values (?, ?, ?)";
+    private static  String WRITER_INSERT  = "insert into WRITER(writer, content) values (?, ?)";
     private static String WRITER_UPDATE = "update WRITER set writerIndex=?, writer=?, content=?";
     private static  String WRITER_DELETE = "delete from WRITER where writerIndex=?";
     private static  String WRITER_GET = "select * from WRITER where writerIndex=?";
@@ -28,12 +29,13 @@ public class WriterDAO {
         try {
             conn = DBConnection.getConnection();
             stmt = conn.prepareStatement(WRITER_INSERT);
-            stmt.setInt(1, writerDTO.getWriterIndex());
-            stmt.setString(2, writerDTO.getWriter());
-            stmt.setString(3, writerDTO.getContent());
+            stmt.setString(1, writerDTO.getWriter());
+            stmt.setString(2, writerDTO.getContent());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBClose.close(stmt, conn);
         }
     }
     // 글 수정
@@ -47,6 +49,8 @@ public class WriterDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBClose.close(stmt, conn);
         }
     }
     // 글 삭제
@@ -58,6 +62,8 @@ public class WriterDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBClose.close(stmt, conn);
         }
     }
     // 글 조회
@@ -76,8 +82,17 @@ public class WriterDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBClose.close(stmt, conn);
         }
         return writerDTO1;
+
+
     }
     // 글 목록 검색
     public List<WriterDTO> getWriterList(WriterDTO writerDTO) {
@@ -95,6 +110,13 @@ public class WriterDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBClose.close(stmt, conn);
         }
         return writerDTOList;
     }
