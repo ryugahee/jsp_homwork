@@ -20,7 +20,7 @@ public class WriterDAO {
     private static  String WRITER_INSERT  = "insert into WRITER(writer, content)" +
             " values (?, ?)";
     private static String WRITER_UPDATE = "update WRITER " +
-            "set writerIndex=?, writer=?, content=?";
+            "set writer=?, content=? where writerIndex=?";
     private static  String WRITER_DELETE = "delete from WRITER where writerIndex=?";
     private static  String WRITER_GET = "select * from WRITER where writerIndex=?";
     private static  String WRITER_LIST = "select * from WRITER";
@@ -34,6 +34,7 @@ public class WriterDAO {
             stmt.setString(1, writerDTO.getWriter());
             stmt.setString(2, writerDTO.getContent());
             stmt.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -41,22 +42,23 @@ public class WriterDAO {
         }
     }
     // 글 수정
-    public void updateWriter(WriterDTO writerDTO) {
+    public WriterDTO updateWriter(WriterDTO writerDTO) {
         try {
             conn = DBConnection.getConnection();
             stmt = conn.prepareStatement(WRITER_UPDATE);
-            stmt.setInt(1, writerDTO.getWriterIndex());
-            stmt.setString(2, writerDTO.getWriter());
-            stmt.setString(3, writerDTO.getContent());
+            stmt.setString(1, writerDTO.getWriter());
+            stmt.setString(2, writerDTO.getContent());
+            stmt.setInt(3, writerDTO.getWriterIndex());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             DBClose.close(stmt, conn);
         }
+        return writerDTO;
     }
     // 글 삭제
-    public void deleteWriter(WriterDTO writerDTO) {
+    public WriterDTO deleteWriter(WriterDTO writerDTO) {
         try {
             conn = DBConnection.getConnection();
             stmt = conn.prepareStatement(WRITER_DELETE);
@@ -67,6 +69,7 @@ public class WriterDAO {
         } finally {
             DBClose.close(stmt, conn);
         }
+        return writerDTO;
     }
     // 글 조회
     public WriterDTO selectWriter(WriterDTO writerDTO) {
@@ -76,7 +79,7 @@ public class WriterDAO {
             stmt = conn.prepareStatement(WRITER_GET);
             stmt.setInt(1, writerDTO.getWriterIndex());
             rs = stmt.executeQuery();
-            if(rs.next()) {
+            while(rs.next()) {
                 writerDTO1 = new WriterDTO();
                 writerDTO1.setWriterIndex(rs.getInt("writerIndex"));
                 writerDTO1.setWriter(rs.getString("writer"));

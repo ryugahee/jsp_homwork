@@ -28,4 +28,14 @@ public class WriterDTO {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "WriterDTO{" +
+                "writerIndex=" + writerIndex +
+                ", writer='" + writer + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
+
