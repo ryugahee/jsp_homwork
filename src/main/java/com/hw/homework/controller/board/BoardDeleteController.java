@@ -14,6 +14,11 @@ import java.io.IOException;
 public class BoardDeleteController extends HttpServlet {
     protected void doGet (HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        // 상태 정보 체크
+        String userDTO1 = (String) req.getSession().getAttribute("id");
+        if(userDTO1 == null) {
+            res.sendRedirect("/");
+        }
         // 사용자 입력 정보 추출
         String writerIndex = req.getParameter("writerIndex");
         // DB 연동

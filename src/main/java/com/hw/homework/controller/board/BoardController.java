@@ -17,6 +17,13 @@ public class BoardController extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        // 상태 정보 체크
+//        String userDTO1 = (String) req.getSession().getAttribute("id");  // 형변환 필요. getAttribute 메서드는 세션에서 속성을 가져올 때 Object 형태로 반환함
+//        if(userDTO1 == null) {
+//            res.sendRedirect("/");
+//        }
+
+
         // DB 연동
         WriterDTO writerDTO = new WriterDTO();
 

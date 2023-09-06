@@ -67,25 +67,30 @@ public class UserDAO {
         }
     }
     public UserDTO selectUser(UserDTO userDTO) {
+        UserDTO userDTO1 = null;
         try {
-            UserDTO userDTO1 = null;
             conn = DBConnection.getConnection();
             stmt = conn.prepareStatement(USER_GET);
-            stmt.setString(1, UserDTO.getId());
+            stmt.setString(1, userDTO.getId());
             rs = stmt.executeQuery();
             while(rs.next()) {
-                userDTO = new UserDTO();
-                userDTO.setId(rs.getString("id"));
-                userDTO.setId(rs.getString("password"));
-                userDTO.setId(rs.getString("name"));
-                userDTO.setId(rs.getString("role"));
+                userDTO1 = new UserDTO();
+                userDTO1.setId(rs.getString("id"));
+                userDTO1.setPassword(rs.getString("password"));
+                userDTO1.setName(rs.getString("name"));
+                userDTO1.setRole(rs.getString("role"));
             }
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             DBClose.close(stmt, conn);
         }
-        return userDTO;
+        return userDTO1;
     }
     public List<UserDTO> getUserList(UserDTO userDTO) {
         List<UserDTO> userDTOList = new ArrayList<>();

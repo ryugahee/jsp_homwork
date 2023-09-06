@@ -27,15 +27,15 @@ public class WriteController extends HttpServlet {
         // 사용자 입력 정보 추출 (name 파라미터)
         String writer = req.getParameter("writer");
         String content = req.getParameter("content");
-        System.out.println(1);
+
        // DB 연동
        WriterDTO writerDTO = new WriterDTO();
        writerDTO.setWriter(writer);
        writerDTO.setContent(content);
-        System.out.println("2");
+
        WriterDAO writerDAO = new WriterDAO();
        writerDAO.insertWriter(writerDTO);
-        System.out.println("3");
+
         res.sendRedirect("/board.do");
     }
 }
