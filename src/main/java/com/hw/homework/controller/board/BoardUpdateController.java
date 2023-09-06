@@ -1,4 +1,4 @@
-package com.hw.homework.controller.user;
+package com.hw.homework.controller.board;
 
 import com.hw.homework.DAO.WriterDAO;
 import com.hw.homework.DTO.WriterDTO;
@@ -9,22 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+@WebServlet("/updateBoard.do")
+public class BoardUpdateController extends HttpServlet {
 
-@WebServlet("/boardDelete.do")
-public class BoardDeleteController extends HttpServlet {
-    protected void doGet (HttpServletRequest req, HttpServletResponse res)
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        // 한글 인코딩
+        req.setCharacterEncoding("UTF-8");
         // 사용자 입력 정보 추출
         String writerIndex = req.getParameter("writerIndex");
+        String writer = req.getParameter("writer");
+        String content = req.getParameter("content");
+        System.out.println(writerIndex);
+        System.out.println(writer);
+        System.out.println(content);
         // DB 연동
         WriterDTO writerDTO = new WriterDTO();
         writerDTO.setWriterIndex(Integer.parseInt(writerIndex));
+        writerDTO.setWriter(writer);
+        writerDTO.setContent(content);
 
         WriterDAO writerDAO = new WriterDAO();
-        WriterDTO writerDTO1 = writerDAO.deleteWriter(writerDTO);
+        writerDAO.updateWriter(writerDTO);
 
-        req.setAttribute("writerDTO1", writerDTO1);
-        // 이동한 화면의 객체를 가지고 있지 않을 때 -> sendRedirect 방식 사용
         res.sendRedirect("/board.do");
     }
 }

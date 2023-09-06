@@ -1,10 +1,8 @@
-package com.hw.homework.controller.user;
+package com.hw.homework.controller.board;
 
 import com.hw.homework.DAO.WriterDAO;
 import com.hw.homework.DTO.WriterDTO;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
 
 @WebServlet("/write.do")  // Annotation을 이용한 URL mapping
 public class WriteController extends HttpServlet {
@@ -31,14 +27,15 @@ public class WriteController extends HttpServlet {
         // 사용자 입력 정보 추출 (name 파라미터)
         String writer = req.getParameter("writer");
         String content = req.getParameter("content");
+        System.out.println(1);
        // DB 연동
        WriterDTO writerDTO = new WriterDTO();
        writerDTO.setWriter(writer);
        writerDTO.setContent(content);
-
+        System.out.println("2");
        WriterDAO writerDAO = new WriterDAO();
        writerDAO.insertWriter(writerDTO);
-
+        System.out.println("3");
         res.sendRedirect("/board.do");
     }
 }

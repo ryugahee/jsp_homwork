@@ -6,7 +6,7 @@
 </head>
 <body>
 <%
-    response.sendRedirect("/board.do");
+    response.sendRedirect("/login.do");
 %>
 </body>
 </html>
