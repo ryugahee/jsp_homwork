@@ -20,12 +20,12 @@ public class loginController extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        // 한글 인코딩
+
         req.setCharacterEncoding("UTF-8");
-        // 사용자 입력 정보 추출 (name 파라미터)
+
         String id = req.getParameter("id");
         String password = req.getParameter("password");
-        // DB 연동
+
         UserDTO userDTO = new UserDTO();
         userDTO.setId(id);
 
